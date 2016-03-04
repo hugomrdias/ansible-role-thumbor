@@ -8,12 +8,13 @@
   with_items:
     - python-pip
     - python-dev
-    - libssl-dev
-    - libcurl4-openssl-dev
+    - python-pycurl
     - python-numpy
     - python-opencv
+    - libssl-dev
+    - libcurl4-openssl-dev
     - libopencv-dev
-    - libjpeg-de
+    - libjpeg-dev
     - libpng-dev
     - libx264-dev
     - libass-dev
