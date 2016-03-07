@@ -1,0 +1,25 @@
+description "Thumbor image manipulation service"
+author "Wichert Akkerman <wichert@wiggy.net>"
+
+stop on stopping thumbor
+
+respawn
+
+setuid {{thumbor_user}}
+setgid {{thumbor_group}}
+
+env conffile={{thumbor_config_dir}}/thumbor.conf
+env keyfile={{thumbor_config_dir}}/thumbor.key
+env ip=0.0.0.0
+env level=warning
+
+instance $PORT
+usage "PORT=port that the worker listens on"
+
+chdir {{thumbor_home}}
+
+script
+    [ -r /etc/default/thumbor ] && . /etc/default/thumbor
+    
+    exec /usr/local/bin/thumbor -c "${conffile}" -i "${ip}" -k "${keyfile}" -p "${PORT}" -l "${level}"
+end script

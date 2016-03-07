@@ -1,7 +1,21 @@
 ---
 # tasks file for ansible-role-thumbor
-- name: update apt
-  apt: update_cache=yes
+- name: create thumbor group
+  group: 
+    name={{ thumbor_group }} 
+    system=yes 
+    state=present
+
+- name: create thumbor user
+  user: 
+    name={{ thumbor_user }}
+    group={{ thumbor_group }}
+    home={{ thumbor_home}}
+    system=yes
+    state=present
+
+- name: update apt cache
+  apt: update_cache=yes cache_valid_time=3600
 
 - name: install thumbor deps
   apt: pkg={{item}}
@@ -24,3 +38,81 @@
     - webp
     - gifsicle
     - libgif-dev
+
+- name: install thumbor
+  pip: name=thumbor
+
+- name: create thumbor config dir
+  file:
+    path={{thumbor_config_dir}}
+    owner={{ thumbor_user }}
+    group={{ thumbor_group }}
+    mode=0755
+    state=directory
+
+- name: configure thumbor
+  template: 
+    src=thumbor.conf.j2 
+    dest="{{ thumbor_config_dir }}/thumbor.conf"
+    owner={{ thumbor_user }}
+    group={{ thumbor_group }}
+    mode=0755
+
+- name: copy thumbor key 
+  template: 
+    src=thumbor.key.j2 
+    dest="{{ thumbor_config_dir }}/thumbor.key"
+    owner={{ thumbor_user }}
+    group={{ thumbor_group }} 
+    mode=0755
+
+- name: mkdir /var/lib/thumbor/storage
+  file: 
+    path={{thumbor_storage_root_path}} state=directory
+    owner={{ thumbor_user }} 
+    group={{ thumbor_group }} 
+    mode=0755
+
+- name: mkdir /var/lib/thumbor/result_storage
+  file: 
+    path={{thumbor_result_storage_file_storage_root_path}} state=directory
+    owner={{ thumbor_user }} 
+    group={{ thumbor_group }} 
+    mode=0755
+
+- name: mkdir /var/lib/thumbor/tmp
+  file: 
+    path={{thumbor_loader_root_path}} state=directory
+    owner={{ thumbor_user }} 
+    group={{ thumbor_group }} 
+    mode=0755
+
+- name: copy thumbor service default config
+  template: 
+    src=thumbor.default.j2
+    dest=/etc/default/thumbor
+    owner=root
+    group=root
+    mode=644
+
+- name: copy thumbor upstart script
+  template: 
+    src=thumbor-upstart.conf.j2
+    dest=/etc/init/thumbor.conf
+    owner=root
+    group=root
+    mode=644
+
+- name: copy thumbor worker upstart script
+  template: 
+    src=thumbor-worker-upstart.conf.j2
+    dest=/etc/init/thumbor-worker.conf
+    owner=root
+    group=root
+    mode=644
+
+- service:
+    name=thumbor
+    state=restarted
+    enabled=yes
+

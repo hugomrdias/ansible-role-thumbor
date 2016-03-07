@@ -1,2 +1,31 @@
 ---
 # defaults file for ansible-role-thumbor
+
+# General Thumbor settings
+thumbor_security_key: secret # Overwrite this to make your thumbor secure
+thumbor_user: thumbor
+thumbor_group: thumbor
+thumbor_home: /var/lib/thumbor
+thumbor_config_dir: /etc/thumbor
+
+# thumbor.loaders.file_loader or thumbor.loaders.http_loader
+thumbor_loader: thumbor.loaders.file_loader
+thumbor_storage: thumbor.storages.file_storage
+thumbor_result_storage: thumbor.result_storages.file_storage
+
+thumbor_loader_root_path: /var/lib/thumbor/tmp
+thumbor_storage_root_path: /var/lib/thumbor/storage
+
+# Result Storage Config
+thumbor_result_storage_file_storage_root_path: /var/lib/thumbor/result_storage
+thumbor_result_storage_expiration: 12 # in hours 
+thumbor_result_storage_stores_unsafe: True
+
+
+# Thumbor result storage (cache) settings
+#thumbor_client_side_cache_duration: 30 # in days
+
+# Upload config
+thumbor_upload_enabled: True
+thumbor_upload_delete_allowed: False
+thumbor_upload_put_allowed: False

@@ -1,2 +1,5 @@
 [vagrant]
 thumbor.local ansible_ssh_user=vagrant ansible_ssh_host=192.168.11.20
+
+[jll]
+jll-box ansible_ssh_user=movvo ansible_ssh_host=jll-box.movves.io

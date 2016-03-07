@@ -1,2 +1,7 @@
 ---
 # handlers file for ansible-role-thumbor
+# - name: restart nginx
+#   service: name=nginx state=restarted
+
+- name: restart thumbor
+  service: name=thumbor state=restarted enabled=yes
