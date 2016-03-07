@@ -1,0 +1,11 @@
+[program:thumbor]
+command=thumbor -p 800%(process_num)s -c {{thumbor_config_dir}}/thumbor.conf -k {{thumbor_config_dir}}/thumbor.key
+process_name=thumbor800%(process_num)s
+numprocs={{thumbor_processes}}
+user={{thumbor_user}}
+autostart=true
+autrestart=true
+stdout_logfile={{thumbor_log_dir}}/thumbor800%(process_num)s.stdout.log
+stdout_logfile_backups=3
+stderr_logfile={{thumbor_log_dir}}/thumbor800%(process_num)s.stderr.log
+stderr_logfile_backups=3
