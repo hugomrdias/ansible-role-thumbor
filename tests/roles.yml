@@ -1,0 +1,3 @@
+# from galaxy
+- src: futurice.supervisor
+  path: roles

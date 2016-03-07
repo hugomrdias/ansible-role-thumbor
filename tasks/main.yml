@@ -10,7 +10,7 @@
   user: 
     name={{ thumbor_user }}
     group={{ thumbor_group }}
-    home={{ thumbor_home}}
+    home={{ thumbor_home }}
     system=yes
     state=present
 
