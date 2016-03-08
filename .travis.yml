@@ -2,8 +2,14 @@
 language: python
 python: "2.7"
 
-# Use the new container infrastructure
+# Use the new container infrastructure if no sudo is needed with sudo: false
 sudo: required
+dist: trusty
+
+# Test multiple ansible versions
+env:
+  - ANSIBLE_VERSION=latest
+  - ANSIBLE_VERSION=1.9.4
 
 # Install ansible
 addons:
@@ -16,7 +22,8 @@ install:
   - pip install ansible
 
   # Check ansible version
-  - ansible --version
+  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
+  #- ansible --version
 
   # Install deps
   #- ansible-galaxy install -r tests/roles.yml -p tests/roles
