@@ -3,5 +3,8 @@
 # - name: restart nginx
 #   service: name=nginx state=restarted
 
+#- name: restart thumbor
+#  service: name=thumbor state=restarted enabled=yes
+
 - name: restart thumbor
-  service: name=thumbor state=restarted enabled=yes
+  supervisorctl: name='thumbor:' state=restarted

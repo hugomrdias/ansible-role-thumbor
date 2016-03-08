@@ -20,6 +20,7 @@
 - name: install thumbor deps
   apt: pkg={{item}}
   with_items:
+    - supervisor
     - python-pip
     - python-dev
     - python-pycurl
@@ -66,53 +67,28 @@
     group={{ thumbor_group }} 
     mode=0755
 
-- name: mkdir /var/lib/thumbor/storage
-  file: 
-    path={{thumbor_storage_root_path}} state=directory
+- name: create folders
+  file:
+    path={{item}}
+    state=directory
     owner={{ thumbor_user }} 
     group={{ thumbor_group }} 
     mode=0755
+  with_items:
+    - "{{thumbor_log_dir}}"
+    - "{{thumbor_storage_root_path}}"
+    - "{{thumbor_result_storage_file_storage_root_path}}"
+    - "{{thumbor_loader_root_path}}"
 
-- name: mkdir /var/lib/thumbor/result_storage
-  file: 
-    path={{thumbor_result_storage_file_storage_root_path}} state=directory
-    owner={{ thumbor_user }} 
-    group={{ thumbor_group }} 
-    mode=0755
+- name: Make sure supervisord service is enabled to start on boot
+  service:
+    name: supervisor
+    enabled: yes
+    state: started
 
-- name: mkdir /var/lib/thumbor/tmp
-  file: 
-    path={{thumbor_loader_root_path}} state=directory
-    owner={{ thumbor_user }} 
-    group={{ thumbor_group }} 
-    mode=0755
-
-- name: copy thumbor service default config
-  template: 
-    src=thumbor.default.j2
-    dest=/etc/default/thumbor
-    owner=root
-    group=root
-    mode=644
-
-- name: copy thumbor upstart script
-  template: 
-    src=thumbor-upstart.conf.j2
-    dest=/etc/init/thumbor.conf
-    owner=root
-    group=root
-    mode=644
-
-- name: copy thumbor worker upstart script
-  template: 
-    src=thumbor-worker-upstart.conf.j2
-    dest=/etc/init/thumbor-worker.conf
-    owner=root
-    group=root
-    mode=644
-
-- service:
-    name=thumbor
-    state=restarted
-    enabled=yes
-
+- name: Copy supervisord config file (which spawns the thumbor processes)
+  template:
+    src: supervisor.thumbor.conf.j2
+    dest: "/etc/supervisor/conf.d/thumbor.conf"
+  notify:
+    - restart thumbor
