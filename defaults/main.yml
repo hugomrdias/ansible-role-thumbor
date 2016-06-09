@@ -3,6 +3,7 @@
 
 # General Thumbor settings
 thumbor_security_key: secret # Overwrite this to make your thumbor secure
+thumbor_log_level: debug # debug, info, warning, error, critical or notset
 thumbor_user: thumbor
 thumbor_group: thumbor
 thumbor_processes: 1
@@ -11,21 +12,26 @@ thumbor_config_dir: /etc/thumbor
 thumbor_log_dir: '{{thumbor_home}}/log'
 
 # thumbor.loaders.file_loader or thumbor.loaders.http_loader
-thumbor_loader: thumbor.loaders.file_loader
+thumbor_loader: thumbor.loaders.https_loader
 thumbor_storage: thumbor.storages.file_storage
 thumbor_result_storage: thumbor.result_storages.file_storage
 
 thumbor_loader_root_path: '{{thumbor_home}}/tmp'
 thumbor_storage_root_path: '{{thumbor_home}}/storage'
+thumbor_enable_etags: True
+
+# Imaging
+thumbor_max_width: 1920
+thumbor_max_height: 1920
+thumbor_max_age: 86400 # in seconds ex. 24h
+thumbor_send_if_modified_last_modified_header: True
+thumbor_allowed_sources : "'api.movves.io', 'github.com'"
+thumbor_auto_webp: True
 
 # Result Storage Config
 thumbor_result_storage_file_storage_root_path: '{{thumbor_home}}/result_storage'
-thumbor_result_storage_expiration: 12 # in hours 
+thumbor_result_storage_expiration: 86400 # in seconds ex. 24h
 thumbor_result_storage_stores_unsafe: True
-
-
-# Thumbor result storage (cache) settings
-#thumbor_client_side_cache_duration: 30 # in days
 
 # Upload config
 thumbor_upload_enabled: False

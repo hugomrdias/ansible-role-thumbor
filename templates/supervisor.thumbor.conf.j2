@@ -1,5 +1,5 @@
 [program:thumbor]
-command=thumbor -p 800%(process_num)s -c {{thumbor_config_dir}}/thumbor.conf -k {{thumbor_config_dir}}/thumbor.key
+command=thumbor -p 800%(process_num)s -c {{thumbor_config_dir}}/thumbor.conf -k {{thumbor_config_dir}}/thumbor.key -l {{thumbor_log_level}}
 process_name=thumbor800%(process_num)s
 numprocs={{thumbor_processes}}
 user={{thumbor_user}}
