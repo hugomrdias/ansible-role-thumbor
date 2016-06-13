@@ -7,10 +7,10 @@ This is for advanced users.
 None   
 
 ## Role Variables
-Check defaults   
+Check `defaults/main.yml`
 
 ## Dependencies
-ansible-galaxy install -r roles.yml -p roles
+None
 
 ## Example Playbook
 
@@ -18,9 +18,9 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: hugomrdias.thumbor }
 
-## Example Nginx vhost 
+## Example Nginx vhost
 
 ```
 upstream thumbor  {  

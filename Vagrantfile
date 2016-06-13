@@ -11,9 +11,5 @@ Vagrant.configure(2) do |config|
     ansible.inventory_path = 'tests/inventory'
     ansible.limit = 'vagrant'
     ansible.sudo = true
-    # ansible.verbose = 'vvv'
-    # ansible.extra_vars = {
-    #   nginx_install_method: nginx_install_method
-    # }
   end
 end

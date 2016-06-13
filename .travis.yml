@@ -1,29 +1,12 @@
 ---
-language: python
-python: "2.7"
-
-# Use the new container infrastructure if no sudo is needed with sudo: false
 sudo: required
 dist: trusty
-
-# Test multiple ansible versions
-env:
-  - ANSIBLE_VERSION=latest
-  - ANSIBLE_VERSION=1.9.4
-
-# Install ansible
-addons:
-  apt:
-    packages:
-    - python-pip
+language: python
+python: "2.7"
 
 install:
   # Install ansible
   - pip install ansible
-
-  # Check ansible version
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
-  #- ansible --version
 
   # Install deps
   #- ansible-galaxy install -r tests/roles.yml -p tests/roles
@@ -36,7 +19,7 @@ script:
   - ansible-playbook tests/test.yml --syntax-check
 
   # Run the role/playbook with ansible-playbook.
-  - ansible-playbook tests/test.yml --limit localhost --diff -v
+  - ansible-playbook tests/test.yml --limit localhost
 
   # Run the role/playbook again, checking to make sure it's idempotent.
   - >

@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+{{ thumbor_log_dir }}/*.log {
+  daily
+  missingok
+  rotate 7
+  compress
+  notifempty
+  copytruncate
+  size 25M
+  create 0640 {{thumbor_user}} {{thumbor_group}}
+}

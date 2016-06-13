@@ -6,6 +6,7 @@ thumbor_security_key: secret # Overwrite this to make your thumbor secure
 thumbor_log_level: debug # debug, info, warning, error, critical or notset
 thumbor_user: thumbor
 thumbor_group: thumbor
+thumbor_add_logrotate: False
 thumbor_processes: 1
 thumbor_home: /var/lib/thumbor
 thumbor_config_dir: /etc/thumbor
@@ -25,7 +26,7 @@ thumbor_max_width: 1920
 thumbor_max_height: 1920
 thumbor_max_age: 86400 # in seconds ex. 24h
 thumbor_send_if_modified_last_modified_header: True
-thumbor_allowed_sources : "'api.movves.io', 'github.com'"
+thumbor_allowed_sources : "" # ex. "'google.com', 'github.com'"
 thumbor_auto_webp: True
 
 # Result Storage Config
