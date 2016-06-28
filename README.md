@@ -1,4 +1,4 @@
-# ansible-role-thumbor [![Build Status](https://travis-ci.org/hugomrdias/ansible-role-thumbor.svg?branch=master)](https://travis-ci.org/hugomrdias/ansible-role-thumbor)
+# ansible-role-thumbor [![build status](https://gitlab.com/hugomrdias/ansible-role-thumbor/badges/master/build.svg)](https://gitlab.com/hugomrdias/ansible-role-thumbor/commits/master)
 > Role to install Thumbor in Debian/Ubuntu systems
 
 This is for advanced users.
