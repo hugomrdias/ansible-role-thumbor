@@ -1,6 +1,7 @@
 # {{ ansible_managed }}
 
 {{ thumbor_log_dir }}/*.log {
+  su {{thumbor_user}} {{thumbor_group}}
   daily
   missingok
   rotate 7
