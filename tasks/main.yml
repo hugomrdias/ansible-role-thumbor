@@ -49,18 +49,12 @@
 - name: create thumbor config dir
   file:
     path: "{{thumbor_config_dir}}"
-    owner: "{{ thumbor_user }}"
-    group: "{{ thumbor_group }}"
-    mode: 0755
     state: directory
 
 - name: configure thumbor
   template:
     src: thumbor.conf.j2
     dest: "{{ thumbor_config_dir }}/thumbor.conf"
-    owner: "{{ thumbor_user }}"
-    group: "{{ thumbor_group }}"
-    mode: 0755
   notify:
     - restart thumbor
 
@@ -68,9 +62,6 @@
   template:
     src: thumbor.key.j2
     dest: "{{ thumbor_config_dir }}/thumbor.key"
-    owner: "{{ thumbor_user }}"
-    group: "{{ thumbor_group }}"
-    mode: 0755
 
 - name: create folders
   file:
@@ -78,7 +69,7 @@
     state: directory
     owner: "{{ thumbor_user }}"
     group: "{{ thumbor_group }}"
-    mode: 0775
+    mode: 0644
   with_items:
     - "{{thumbor_log_dir}}"
     - "{{thumbor_storage_root_path}}"
