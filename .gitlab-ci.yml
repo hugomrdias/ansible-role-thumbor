@@ -1,29 +1,33 @@
-test:
-    image: hugomrdias/ansible:debian
-    script:
-    - ansible-playbook tests/test.yml --syntax-check
+stages:
+  - test
+test-debian:
+  stage: test
+  image: hugomrdias/ansible:debian
+  script:
+  - ansible-playbook tests/test.yml --syntax-check
 
-    # Run the role/playbook with ansible-playbook.
-    - ansible-playbook tests/test.yml --limit localhost
+  # Run the role/playbook with ansible-playbook.
+  - ansible-playbook tests/test.yml --limit localhost
 
-    # Run the role/playbook again, checking to make sure it's idempotent.
-    - >
-      ansible-playbook tests/test.yml --limit localhost
-      | grep -q 'changed=0.*failed=0'
-      && (echo 'Idempotence test: pass' && exit 0)
-      || (echo 'Idempotence test: fail' && exit 1)
+  # Run the role/playbook again, checking to make sure it's idempotent.
+  - >
+    ansible-playbook tests/test.yml --limit localhost
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
 
-test:
-    image: hugomrdias/ansible:ubuntu
-    script:
-    - ansible-playbook tests/test.yml --syntax-check
+test-ubuntu:
+  stage: test
+  image: hugomrdias/ansible:ubuntu
+  script:
+  - ansible-playbook tests/test.yml --syntax-check
 
-    # Run the role/playbook with ansible-playbook.
-    - ansible-playbook tests/test.yml --limit localhost
+  # Run the role/playbook with ansible-playbook.
+  - ansible-playbook tests/test.yml --limit localhost
 
-    # Run the role/playbook again, checking to make sure it's idempotent.
-    - >
-      ansible-playbook tests/test.yml --limit localhost
-      | grep -q 'changed=0.*failed=0'
-      && (echo 'Idempotence test: pass' && exit 0)
-      || (echo 'Idempotence test: fail' && exit 1)
+  # Run the role/playbook again, checking to make sure it's idempotent.
+  - >
+    ansible-playbook tests/test.yml --limit localhost
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
