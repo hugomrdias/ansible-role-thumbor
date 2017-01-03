@@ -88,7 +88,7 @@
   when: thumbor_add_logrotate and logrotate.stat.isdir is defined and logrotate.stat.isdir
 
 - name: Make sure supervisord service is enabled to start on boot
-  systemd:
+  service:
     name: supervisor
     enabled: yes
     state: started
