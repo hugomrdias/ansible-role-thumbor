@@ -28,6 +28,7 @@
   apt: pkg={{item}}
   with_items: "{{ thumbor_packages }}"
 
+
 - name: install thumbor
   pip: name=thumbor
 
