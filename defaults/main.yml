@@ -8,9 +8,9 @@ thumbor_user: thumbor
 thumbor_group: thumbor
 thumbor_add_logrotate: False
 thumbor_processes: 1
-thumbor_home: /var/lib/thumbor
+thumbor_home: /home/thumbor
 thumbor_config_dir: /etc/thumbor
-thumbor_log_dir: '/var/log/thumbor'
+thumbor_log_dir: '{{thumbor_home}}/logs'
 
 # thumbor.loaders.file_loader or thumbor.loaders.http_loader
 thumbor_loader: thumbor.loaders.https_loader

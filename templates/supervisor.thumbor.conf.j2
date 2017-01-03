@@ -2,11 +2,15 @@
 command=thumbor -p 800%(process_num)s -c {{thumbor_config_dir}}/thumbor.conf -k {{thumbor_config_dir}}/thumbor.key -l {{thumbor_log_level}}
 process_name=thumbor800%(process_num)s
 numprocs={{thumbor_processes}}
+directory={{thumbor_home}}
 user={{thumbor_user}}
 autostart=true
 autorestart=true
 startretries=3
+stopsignal=TERM
 stdout_logfile={{thumbor_log_dir}}/thumbor800%(process_num)s.stdout.log
-stdout_logfile_backups=3
+stdout_logfile_maxbytes=1MB
+stdout_logfile_backups=10
 stderr_logfile={{thumbor_log_dir}}/thumbor800%(process_num)s.stderr.log
-stderr_logfile_backups=3
+stderr_logfile_maxbytes=1MB
+stderr_logfile_backups=10
