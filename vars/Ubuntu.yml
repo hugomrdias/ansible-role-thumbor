@@ -1,0 +1,23 @@
+thumbor_packages:
+  - supervisor
+  - python-pip
+  - python-dev
+  - python-pycurl
+  - python-numpy
+  - python-opencv
+  - python-scipy
+  - python-pyexiv2
+  - cython
+  - libssl-dev
+  - libcurl4-openssl-dev
+  - libopencv-dev
+  - libjpeg-dev
+  - libpng-dev
+  - libx264-dev
+  - libass-dev
+  - libvpx3
+  - libvpx-dev
+  - libwebp-dev
+  - webp
+  - gifsicle
+  - libgif-dev

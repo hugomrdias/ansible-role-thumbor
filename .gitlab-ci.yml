@@ -1,4 +1,4 @@
-image: hugomrdias/ansible
+image: hugomrdias/ansible:ubuntu
 test:
     script:
     - ansible-playbook tests/test.yml --syntax-check

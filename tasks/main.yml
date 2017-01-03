@@ -1,5 +1,12 @@
 ---
 # tasks file for ansible-role-thumbor
+- name: gather os specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - "default.yml"
+
 - name: create thumbor group
   group:
     name: "{{ thumbor_group }}"
@@ -19,29 +26,7 @@
 
 - name: install thumbor deps
   apt: pkg={{item}}
-  with_items:
-    - supervisor
-    - python-pip
-    - python-dev
-    - python-pycurl
-    - python-numpy
-    - python-opencv
-    - python-scipy
-    - python-pyexiv2
-    - cython
-    - libssl-dev
-    - libcurl4-openssl-dev
-    - libopencv-dev
-    - libjpeg-dev
-    - libpng-dev
-    - libx264-dev
-    - libass-dev
-    - libvpx1
-    - libvpx-dev
-    - libwebp-dev
-    - webp
-    - gifsicle
-    - libgif-dev
+  with_items: "{{ thumbor_packages }}"
 
 - name: install thumbor
   pip: name=thumbor
@@ -87,15 +72,15 @@
     dest: "/etc/logrotate.d/thumbor"
   when: thumbor_add_logrotate and logrotate.stat.isdir is defined and logrotate.stat.isdir
 
-- name: Make sure supervisord service is enabled to start on boot
-  service:
-    name: supervisor
-    enabled: yes
-    state: started
-
 - name: Copy supervisord config file (which spawns the thumbor processes)
   template:
     src: supervisor.thumbor.conf.j2
     dest: "/etc/supervisor/conf.d/thumbor.conf"
   notify:
     - restart thumbor
+
+- name: Make sure supervisord service is enabled to start on boot
+  service:
+    name: supervisor
+    enabled: yes
+    state: started
